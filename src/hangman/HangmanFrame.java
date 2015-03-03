@@ -56,10 +56,13 @@ public class HangmanFrame extends JFrame {
 		//height = center.getHeight();
 		 hangmanComp = new HangmanComponent();
 		center.add(hangmanComp);
+		center.add(new JLabel("hello"));
 		container.add(letters, BorderLayout.WEST);
 		container.add(word, BorderLayout.SOUTH);
 		container.add(center, BorderLayout.CENTER);
 		//container.add(hangmanComp,BorderLayout.CENTER);
+		GameLoopThread t = new GameLoopThread(hangmanComp);
+		t.start();
 	
 	}
 
@@ -120,10 +123,8 @@ public class HangmanFrame extends JFrame {
 		try {
 			frame = new HangmanFrame();
 			frame.setVisible(true);
-			int w = frame.getWidth();
-			int h = frame.getHeight();
-			GameLoopThread t = new GameLoopThread(frame.getHangmanComp());
-			t.start();
+			
+			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

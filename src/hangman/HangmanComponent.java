@@ -1,7 +1,6 @@
 package hangman;
 
 import java.awt.Graphics;
-
 import javax.swing.JComponent;
 
 public class HangmanComponent extends JComponent {
@@ -10,16 +9,17 @@ public class HangmanComponent extends JComponent {
 
 	// Person person;
 
-	 public HangmanComponent(int width, int height){
-	//public HangmanComponent() {
+	public HangmanComponent(/* int width, int height */) {
+		// public HangmanComponent() {
 
-		this.noose = new Noose(width, height);
+		this.noose = new Noose(/* width, height */);
 		// this.person = person;
 	}
 
-	protected void paintComponenet(Graphics g) {
+	@Override
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		noose.draw(g);
+		noose.paint(g);
 		// person.draw(g);
 	}
 }
