@@ -19,13 +19,7 @@ public class Noose  {
 	}
 	
 	public void draw(Graphics g){
-		/*g.drawLine((int)(width*.5), (int)(height*.2), (int)(width*.5), (int)(height*.4));
-		g.drawLine((int)(width*.5), (int)(height*.2), (int)(width*.8), (int)(height*.2));
-		g.drawLine((int)(width*.8), (int)(height*.2), (int)(width*.8), (int)(height*.8));
-		g.drawLine((int)(width*.3), (int)(height*.8), (int)(width*.9), (int)(height*.8));
-*/
-		
-		//Graphics2D g2d = (Graphics2D) g;
+	
 		g.drawLine((int)(width*.4), (int)(height*.1), (int)(width*.4), (int)(height*.2));
 		g.drawLine((int)(width*.4), (int)(height*.1), (int)(width*.67), (int)(height*.1));
 		g.drawLine((int)(width*.67), (int)(height*.1), (int)(width*.67), (int)(height*.8));
