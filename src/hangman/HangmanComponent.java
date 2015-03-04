@@ -1,31 +1,25 @@
 package hangman;
 
 import java.awt.Graphics;
-
 import javax.swing.JComponent;
 
 public class HangmanComponent extends JComponent {
 
 	Noose noose;
 
-	 Person person;
+	// Person person;
 
-	 public HangmanComponent(int width, int height){
-	//public HangmanComponent() {
+	public HangmanComponent(/* int width, int height */) {
+		// public HangmanComponent() {
 
-		this.noose = new Noose(width, height);
-		 this.person = new Person(width, height);
-		//this.noose = new Noose();
-
+		this.noose = new Noose(/* width, height */);
+		// this.person = person;
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		noose.draw(g);
-		person.draw(g);
-		//g.drawLine(200, 300, 400, 500);
+		noose.paint(g);
 		// person.draw(g);
 	}
 }
