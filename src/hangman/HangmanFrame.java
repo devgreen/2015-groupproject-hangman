@@ -1,6 +1,5 @@
 package hangman;
 
-
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -20,7 +19,7 @@ public class HangmanFrame extends JFrame {
 
 	private JPanel letters;
 	private JPanel word;
-	//private JPanel center;
+	// private JPanel center;
 	private Alphabet alph;
 	private Word currentWord;
 	private JLabel[] line;
@@ -54,18 +53,16 @@ public class HangmanFrame extends JFrame {
 		currentWord = new Word();
 		setLines();
 
-		
-
 		width = this.getWidth();
 		height = this.getHeight();
-		//height = center.getHeight();
-		 hangmanComp = new HangmanComponent(width, height);
+		// height = center.getHeight();
+		hangmanComp = new HangmanComponent(width, height);
 		container.add(letters, BorderLayout.WEST);
 		container.add(word, BorderLayout.SOUTH);
-		container.add(hangmanComp,BorderLayout.CENTER);
-		//GameLoopThread t = new GameLoopThread(this);
-		//t.start();
-	
+		container.add(hangmanComp, BorderLayout.CENTER);
+		// GameLoopThread t = new GameLoopThread(this);
+		// t.start();
+
 	}
 
 	ActionListener checkLetter = new ActionListener() {
@@ -76,32 +73,36 @@ public class HangmanFrame extends JFrame {
 			button.setEnabled(false);
 			if (button.equals(restart)) {
 				hangmanComp = new HangmanComponent(width, height);
-				
-			} else {
-			ArrayList<Integer> there = contains(button);
-			if (!there.isEmpty()) {
-				for (int i = 0; i < there.size(); i++) {
-					line[there.get(i)].setText(button.getText());
+				try {
+					currentWord = new Word();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
 				}
+				setLines();
 
 			} else {
-				if(hangmanComp.person.getNumOuts()<6){
-					hangmanComp.person.setNumOuts();
-			}
-				else{
-					//	gameOver = true;
+				ArrayList<Integer> there = contains(button);
+				if (!there.isEmpty()) {
+					for (int i = 0; i < there.size(); i++) {
+						line[there.get(i)].setText(button.getText());
+					}
+
+				} else {
+					if (hangmanComp.getPerson().getNumOuts() < 6) {
+						hangmanComp.getPerson().setNumOuts();
+					} else {
+						// gameOver = true;
 						gameOver();
 					}
-				
+
+				}
+
 			}
-				
-			}
-			
-			
+
 		}
-		
+
 		private void gameOver() {
-			container.add(restart, BorderLayout.CENTER);
+			container.add(restart, BorderLayout.EAST);
 
 		}
 
@@ -150,7 +151,6 @@ public class HangmanFrame extends JFrame {
 			frame.setVisible(true);
 			GameLoopThread t = new GameLoopThread(frame);
 			t.start();
-			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

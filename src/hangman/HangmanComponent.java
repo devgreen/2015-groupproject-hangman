@@ -5,9 +5,13 @@ import javax.swing.JComponent;
 
 public class HangmanComponent extends JComponent {
 
-	Noose noose;
+	private Noose noose;
 
-	Person person;
+	private Person person;
+
+	public Person getPerson() {
+		return person;
+	}
 
 	public HangmanComponent(int width, int height) {
 		// public HangmanComponent() {

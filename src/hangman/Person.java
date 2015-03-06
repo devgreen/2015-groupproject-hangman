@@ -26,6 +26,10 @@ public class Person {
 	public void setNumOuts() {
 		this.numOuts++;
 	}
+	
+	public void resetOuts() {
+		this.numOuts = -1;
+	}
 
 	public void draw(Graphics g) {
 		//numOuts = numOuts+2;
