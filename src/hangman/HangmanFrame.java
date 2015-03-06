@@ -22,7 +22,7 @@ public class HangmanFrame extends JFrame {
 	// private JPanel center;
 	private Alphabet alph;
 	private Word currentWord;
-	private JLabel[] line;
+	private ArrayList<JLabel> line;
 	private int width;
 	private int height;
 	private HangmanComponent hangmanComp;
@@ -37,6 +37,7 @@ public class HangmanFrame extends JFrame {
 
 		gameOver = false;
 		restart = new JButton("restart");
+		restart.addActionListener(restartListener);
 		container = getContentPane();
 		container.setLayout(new BorderLayout());
 
@@ -64,6 +65,24 @@ public class HangmanFrame extends JFrame {
 		// t.start();
 
 	}
+	
+	ActionListener restartListener = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				currentWord = new Word();
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			setLines();
+			setButtons();
+			resetLines();
+			
+			
+		}
+		
+	};
 
 	ActionListener checkLetter = new ActionListener() {
 
@@ -73,25 +92,20 @@ public class HangmanFrame extends JFrame {
 			button.setEnabled(false);
 			if (button.equals(restart)) {
 				hangmanComp = new HangmanComponent(width, height);
-				try {
-					currentWord = new Word();
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-				setLines();
+			
 
 			} else {
 				ArrayList<Integer> there = contains(button);
 				if (!there.isEmpty()) {
 					for (int i = 0; i < there.size(); i++) {
-						line[there.get(i)].setText(button.getText());
+						line.get(there.get(i)).setText(button.getText());
 					}
 
 				} else {
-					if (hangmanComp.getPerson().getNumOuts() < 6) {
+					if (hangmanComp.getPerson().getNumOuts() < 5) {
 						hangmanComp.getPerson().setNumOuts();
 					} else {
-						// gameOver = true;
+						
 						gameOver();
 					}
 
@@ -103,6 +117,7 @@ public class HangmanFrame extends JFrame {
 
 		private void gameOver() {
 			container.add(restart, BorderLayout.EAST);
+			hangmanComp.getPerson().resetOuts();
 
 		}
 
@@ -129,6 +144,7 @@ public class HangmanFrame extends JFrame {
 
 		for (int i = 0; i < alphabet.length; i++) {
 			alphabet[i].addActionListener(checkLetter);
+			alphabet[i].setEnabled(true);
 			letters.add(alphabet[i]);
 
 		}
@@ -138,10 +154,16 @@ public class HangmanFrame extends JFrame {
 	public void setLines() {
 		line = currentWord.getLines();
 
-		for (int j = 0; j < line.length; j++) {
-			word.add(line[j]);
+		for (int j = 0; j < line.size(); j++) {
+			word.add(line.get(j));
 		}
 
+	}
+	
+	public void resetLines(){
+		line.clear();
+		word.removeAll();
+		setLines();
 	}
 
 	public static void main(String[] args) {
