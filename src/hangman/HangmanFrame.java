@@ -36,10 +36,12 @@ public class HangmanFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		gameOver = false;
-		restart = new JButton("restart");
-		restart.addActionListener(restartListener);
+
 		container = getContentPane();
 		container.setLayout(new BorderLayout());
+
+		restart = new JButton("restart");
+		restart.addActionListener(restartListener);
 
 		letters = new JPanel();
 		letters.setLayout(new GridLayout(0, 2));
@@ -61,12 +63,13 @@ public class HangmanFrame extends JFrame {
 		container.add(letters, BorderLayout.WEST);
 		container.add(word, BorderLayout.SOUTH);
 		container.add(hangmanComp, BorderLayout.CENTER);
+		container.add(restart, BorderLayout.NORTH);
 		// GameLoopThread t = new GameLoopThread(this);
 		// t.start();
 
 	}
-	
-	ActionListener restartListener = new ActionListener(){
+
+	ActionListener restartListener = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -75,13 +78,13 @@ public class HangmanFrame extends JFrame {
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-			setLines();
-			setButtons();
+			// setLines();
+			hangmanComp.getPerson().resetOuts();
+			resetButtons();
 			resetLines();
-			
-			
+
 		}
-		
+
 	};
 
 	ActionListener checkLetter = new ActionListener() {
@@ -90,25 +93,19 @@ public class HangmanFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			JButton button = (JButton) e.getSource();
 			button.setEnabled(false);
-			if (button.equals(restart)) {
-				hangmanComp = new HangmanComponent(width, height);
-			
+			ArrayList<Integer> there = contains(button);
+			if (!there.isEmpty()) {
+				for (int i = 0; i < there.size(); i++) {
+					line.get(there.get(i)).setText(button.getText());
+				}
 
 			} else {
-				ArrayList<Integer> there = contains(button);
-				if (!there.isEmpty()) {
-					for (int i = 0; i < there.size(); i++) {
-						line.get(there.get(i)).setText(button.getText());
-					}
-
+				if (hangmanComp.getPerson().getNumOuts() < 5) {
+					hangmanComp.getPerson().setNumOuts();
+					//System.out.println (hangmanComp.getPerson().getNumOuts());
 				} else {
-					if (hangmanComp.getPerson().getNumOuts() < 5) {
-						hangmanComp.getPerson().setNumOuts();
-					} else {
-						
-						gameOver();
-					}
-
+					hangmanComp.getPerson().setNumOuts();
+					gameOver();
 				}
 
 			}
@@ -116,8 +113,13 @@ public class HangmanFrame extends JFrame {
 		}
 
 		private void gameOver() {
-			container.add(restart, BorderLayout.EAST);
-			hangmanComp.getPerson().resetOuts();
+			// container.add(restart, BorderLayout.EAST);
+			// hangmanComp.getPerson().resetOuts();
+			String getWord = currentWord.getCurrWord();
+			for (int i = 0; i < line.size(); i++) {
+				line.get(i).setText(String.valueOf(getWord.charAt(i)));
+
+			}
 
 		}
 
@@ -150,6 +152,17 @@ public class HangmanFrame extends JFrame {
 		}
 
 	}
+	public void resetButtons(){
+		JButton[] alphabet = alph.getLetters();
+		
+		for (int i = 0; i < alphabet.length; i++) {
+			
+			alphabet[i].setEnabled(true);
+			
+
+		}
+		
+	}
 
 	public void setLines() {
 		line = currentWord.getLines();
@@ -159,11 +172,12 @@ public class HangmanFrame extends JFrame {
 		}
 
 	}
-	
-	public void resetLines(){
+
+	public void resetLines() {
 		line.clear();
 		word.removeAll();
 		setLines();
+		word.revalidate();
 	}
 
 	public static void main(String[] args) {
