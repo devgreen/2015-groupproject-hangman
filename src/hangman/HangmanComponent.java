@@ -5,21 +5,26 @@ import javax.swing.JComponent;
 
 public class HangmanComponent extends JComponent {
 
-	Noose noose;
+	private Noose noose;
 
-	// Person person;
+	private Person person;
 
-	public HangmanComponent(/* int width, int height */) {
+	public Person getPerson() {
+		return person;
+	}
+
+	public HangmanComponent(int width, int height) {
 		// public HangmanComponent() {
 
-		this.noose = new Noose(/* width, height */);
-		// this.person = person;
+		this.noose = new Noose(width, height);
+		this.person = new Person(width, height);
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		noose.draw(g);
-		// person.draw(g);
+		person.draw(g);
+
 	}
 }

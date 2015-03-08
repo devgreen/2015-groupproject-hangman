@@ -1,13 +1,14 @@
 package hangman;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
 public class Word {
 
 	//private int size;
-	private JLabel[] line;
+	private ArrayList<JLabel> line;
 	//private Dictionary dict ;
 	private String currWord;
 	
@@ -19,14 +20,14 @@ public class Word {
 		Dictionary dict = new Dictionary();
 		 currWord = dict.getWord();
 	//	this.size = size;
-		line = new JLabel[currWord.length()];
-		for(int i =0;i< line.length;i++){
-			line[i] = new JLabel();
-			line[i].setText("_____");
+		line = new ArrayList<JLabel>();
+		for(int i =0;i< currWord.length();i++){
+			line.add(new JLabel());
+			line.get(i).setText("_____");
 		}
 	}
 
-	public JLabel[] getLines() {
+	public ArrayList<JLabel> getLines() {
 		return line;
 	}
 	

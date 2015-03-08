@@ -10,9 +10,9 @@ public class Noose {
 	private int width;
 	private int height;
 
-	public Noose(/* int width, int height */) {
-		// this.width = width;
-		// this.height = height;
+	public Noose( int width, int height ) {
+		 this.width = width;
+		 this.height = height;
 	}
 
 	
