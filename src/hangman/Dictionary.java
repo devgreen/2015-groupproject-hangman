@@ -2,31 +2,31 @@ package hangman;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Dictionary {
 
-	private ArrayList<String> dictionary;
-	
-	public Dictionary() throws FileNotFoundException{
+	private Map<Integer, String> dictionary;
+
+	public Dictionary() throws FileNotFoundException {
 		Scanner scanner = new Scanner(new File("./OWL.txt"));
-		dictionary = new ArrayList<String>();
-		while(scanner.hasNext()){
-			dictionary.add(scanner.next());
+		Integer i = 0;
+		dictionary = new HashMap<Integer, String>();
+		while (scanner.hasNext()) {
+			dictionary.put(i++, scanner.next());
 			scanner.nextLine();
 		}
-		
-		
-	}
-	public String getWord(){
-		Random random = new Random();
-		int number = random.nextInt(dictionary.size()-1)+1072;
-		return dictionary.get(number);
+		scanner.close();
+
 	}
 
-	public ArrayList<String> getDictionary() {
+	public int getSize() {
+		return dictionary.size();
+	}
+
+	public Map<Integer, String> getDictionary() {
 		return dictionary;
 	}
 }
