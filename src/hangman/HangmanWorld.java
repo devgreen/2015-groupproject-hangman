@@ -18,13 +18,25 @@ public class HangmanWorld extends JComponent {
 	private Alphabet alphabet;
 	private Word word;
 
-	public HangmanWorld(JPanel alph, JPanel wordLines)
-			throws FileNotFoundException {
+	public HangmanWorld(JPanel alph, JPanel wordLines) throws FileNotFoundException {
 		hangmanComp = new Hangman(800, 600);
 		alphabet = new Alphabet(alph);
 		alphabet.addActionListener(checkLetter);
 		word = new Word(wordLines);
 
+	}
+
+	public HangmanWorld(String userInput, JPanel alph, JPanel wordLines) {
+		hangmanComp = new Hangman(800, 600);
+		alph.removeAll();
+		wordLines.removeAll();
+		alphabet = new Alphabet(alph);
+		alphabet.addActionListener(checkLetter);
+		alph.revalidate();
+		word = new Word(wordLines, userInput);
+		wordLines.revalidate();
+
+		// resetGame(wordLines, userInput);
 	}
 
 	@Override
@@ -74,6 +86,20 @@ public class HangmanWorld extends JComponent {
 		word.getLines().clear();
 		wordLines.removeAll();
 		word.setLines(wordLines);
+		wordLines.revalidate();
+		hangmanComp.getPerson().resetOuts();
+	}
+
+	public void resetGame2(JPanel wordLines) {
+
+		JButton[] alph = alphabet.getLetters();
+		for (int i = 0; i < alph.length; i++) {
+			alph[i].setEnabled(true);
+		}
+
+		word.getLines().clear();
+		wordLines.removeAll();
+		// word.setLinesUser(wordLines);
 		wordLines.revalidate();
 		hangmanComp.getPerson().resetOuts();
 	}

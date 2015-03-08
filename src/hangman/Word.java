@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,14 +14,20 @@ public class Word {
 	private Dictionary dict;
 	private String currWord;
 
-	public String getCurrWord() {
-		return currWord;
-	}
-
 	public Word(JPanel wordLines) throws FileNotFoundException {
 		dict = new Dictionary();
 		line = new ArrayList<JLabel>();
 		setLines(wordLines);
+	}
+
+	public Word(JPanel wordLines, String word) {
+		currWord = word;
+		line = new ArrayList<JLabel>();
+		setLinesUser(wordLines);
+	}
+
+	public String getCurrWord() {
+		return currWord;
 	}
 
 	public void setLines(JPanel wordLines) {
@@ -32,6 +37,21 @@ public class Word {
 			wordLines.add(line.get(i));
 		}
 
+	}
+
+	public void setLinesUser(JPanel wordLines) {
+		line.clear();
+		// wordLines.removeAll();
+		for (int j = 0; j < currWord.length(); j++) {
+			line.add(new JLabel("_____"));
+			wordLines.add(line.get(j));
+		}
+		// wordLines.revalidate();
+
+	}
+
+	public void setCurrWord(String userWord) {
+		currWord = userWord;
 	}
 
 	public ArrayList<Integer> contains(String letter) {

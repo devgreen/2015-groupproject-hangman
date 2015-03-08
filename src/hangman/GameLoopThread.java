@@ -12,7 +12,7 @@ public class GameLoopThread extends Thread {
 		while (true) {
 			frame.getHangmanWorld().repaint();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

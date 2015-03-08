@@ -16,7 +16,7 @@ public class Hangman {
 		this.person = new Person(width, height);
 	}
 
-	protected void draw(Graphics g) {
+	public void draw(Graphics g) {
 		noose.draw(g);
 		person.draw(g);
 
