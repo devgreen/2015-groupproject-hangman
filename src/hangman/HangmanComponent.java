@@ -19,7 +19,7 @@ public class HangmanComponent extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		noose.paint(g);
+		noose.draw(g);
 		// person.draw(g);
 	}
 }
