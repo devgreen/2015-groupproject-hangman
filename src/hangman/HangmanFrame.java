@@ -102,7 +102,8 @@ public class HangmanFrame extends JFrame {
 			} else {
 				if (hangmanComp.getPerson().getNumOuts() < 5) {
 					hangmanComp.getPerson().setNumOuts();
-					//System.out.println (hangmanComp.getPerson().getNumOuts());
+					// System.out.println
+					// (hangmanComp.getPerson().getNumOuts());
 				} else {
 					hangmanComp.getPerson().setNumOuts();
 					gameOver();
@@ -120,7 +121,7 @@ public class HangmanFrame extends JFrame {
 				line.get(i).setText(String.valueOf(getWord.charAt(i)));
 
 			}
-
+			disableButtons();
 		}
 
 	};
@@ -152,16 +153,23 @@ public class HangmanFrame extends JFrame {
 		}
 
 	}
-	public void resetButtons(){
+
+	public void resetButtons() {
 		JButton[] alphabet = alph.getLetters();
-		
+
 		for (int i = 0; i < alphabet.length; i++) {
-			
+
 			alphabet[i].setEnabled(true);
-			
 
 		}
-		
+
+	}
+
+	public void disableButtons() {
+		JButton[] alphabet = alph.getLetters();
+		for (int i = 0; i < alphabet.length; i++) {
+			alphabet[i].setEnabled(false);
+		}
 	}
 
 	public void setLines() {
