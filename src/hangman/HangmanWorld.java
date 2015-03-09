@@ -52,27 +52,30 @@ public class HangmanWorld extends JComponent {
 		public void actionPerformed(ActionEvent e) {
 			JButton button = (JButton) e.getSource();
 			check(button);
+
 		}
 
 	};
 
 	public void check(JButton button) {
 		Person person = hangmanComp.getPerson();
-		button.setEnabled(false);
-		ArrayList<Integer> there = word.contains(button.getText());
-		if (!there.isEmpty()) {
-			for (int i = 0; i < there.size(); i++) {
-				word.getLines().get(there.get(i)).setText(button.getText());
-			}
+		if (button.isEnabled()) {
+			button.setEnabled(false);
+			ArrayList<Integer> there = word.contains(button.getText());
 
-		} else {
-			if (person.getNumOuts() < 5) {
-				person.setNumOuts();
+			if (!there.isEmpty()) {
+				for (int i = 0; i < there.size(); i++) {
+					word.getLines().get(there.get(i)).setText(button.getText());
+				}
+
 			} else {
-				person.setNumOuts();
-				gameOver();
+				if (person.getNumOuts() < 5) {
+					person.setNumOuts();
+				} else {
+					person.setNumOuts();
+					gameOver();
+				}
 			}
-
 		}
 
 	}
@@ -88,6 +91,7 @@ public class HangmanWorld extends JComponent {
 		word.setLines(wordLines);
 		wordLines.revalidate();
 		hangmanComp.getPerson().resetOuts();
+
 	}
 
 	public void resetGame2(JPanel wordLines) {
@@ -114,9 +118,9 @@ public class HangmanWorld extends JComponent {
 		alphabet.disableButtons();
 	}
 
-	public void keyBoardInput(int keypressed) {
+	public void keyBoardInput(int keyPressed) {
 		JButton[] letter = alphabet.getLetters();
-		switch (keypressed) {
+		switch (keyPressed) {
 		case KeyEvent.VK_A:
 			check(letter[0]);
 			break;
