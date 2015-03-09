@@ -49,7 +49,7 @@ public class HangmanWorld extends JComponent {
 		hangmanComp.draw(g);
 		if (win()) {
 			g.setColor(Color.DARK_GRAY);
-			g.drawString("YOU WON!", 300, 300);
+			g.drawString("YOU WON! Jeff will now live!", 300, 300);
 		}
 
 	}

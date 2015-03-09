@@ -125,8 +125,8 @@ public class Person {
 
 			g.drawLine((int) (width * .4), (int) (height * .65), (int) (width * .3), (int) (height * .7));
 			g.drawLine((int) (width * .4), (int) (height * .65), (int) (width * .5), (int) (height * .7));
-			g.drawString("GAME OVER", (int) (width * .33), (int) (height * .4));
-			// out = true;
+			g.drawString("YOU LOST. Jeff is now dead :(", (int) (width * .33), (int) (height * .4));
+			
 			break;
 
 		}
