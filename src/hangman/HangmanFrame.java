@@ -9,10 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -92,17 +89,19 @@ public class HangmanFrame extends JFrame implements KeyListener {
 
 			});
 
-			restart2 = new JButton("Restart");
-			restart2.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					userInput.setText("Must be a minimum of 4 letters");
-					world.resetGame2(wordPanel);
-
-				}
-
-			});
+			/*
+			 * restart2 = new JButton("Restart"); restart2.addActionListener(new
+			 * ActionListener() {
+			 * 
+			 * @Override public void actionPerformed(ActionEvent e) {
+			 * userInput.setText("Must be a minimum of 4 letters");
+			 * world.resetGame2(wordPanel);
+			 * 
+			 * }
+			 * 
+			 * })
+			 */
+			;
 			userInput = new JTextField("Must be a minimum of 4 letters");
 			north.add(userInput);
 			north.add(enter);
@@ -143,18 +142,17 @@ public class HangmanFrame extends JFrame implements KeyListener {
 	}
 
 	ActionListener restartListener = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			try {
 				gameOptionRestart();
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			//world.resetGame(word);
-			//container.transferFocusBackward();
+			// world.resetGame(word);
+			// container.transferFocusBackward();
 
 		}
 
@@ -183,13 +181,12 @@ public class HangmanFrame extends JFrame implements KeyListener {
 
 	public void gameOptionRestart() throws FileNotFoundException {
 		String[] restartOptions = { "Computer", "2 Players", "Exit" };
-		int restartOption = JOptionPane.showOptionDialog(this, "Choose how you would like to play",
-				"Restart", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, restartOptions,
-				restartOptions[0]);
-		switch(restartOption){
+		int restartOption = JOptionPane.showOptionDialog(this, "Choose how you would like to play", "Restart",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, restartOptions, restartOptions[0]);
+		switch (restartOption) {
 		case 0:
 			container.removeAll();
-			world = new HangmanWorld(letters,wordPanel);
+			world = new HangmanWorld(letters, wordPanel);
 			world.resetGame(wordPanel);
 			container.add(world, BorderLayout.CENTER);
 			container.add(letters, BorderLayout.WEST);
@@ -200,11 +197,36 @@ public class HangmanFrame extends JFrame implements KeyListener {
 			break;
 		case 1:
 			container.removeAll();
-			//userInput = new JTextField("Must be a minimum of 4 letters");
+			world.resetGame2(wordPanel);
+
+			north = new JPanel();
+			north.setLayout(new BoxLayout(north, BoxLayout.X_AXIS));
+			userInput = new JTextField();
+			userInput.setText("must be minimum of four letters");
 			north.add(userInput);
+			enter = new JButton("Enter");
+			enter.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String userWord = userInput.getText().toUpperCase();
+					if (userWord.length() < 4) {
+						userInput.setText("Word too short. Enter word minimum of 4 characters");
+
+					} else {
+						userInput.setText("");
+						world = new HangmanWorld(userWord, letters, wordPanel);
+						container.add(world, BorderLayout.CENTER);
+						container.add(wordPanel, BorderLayout.SOUTH);
+						userInput.transferFocusBackward();
+
+					}
+				}
+
+			});
 			north.add(enter);
 			north.add(restart);
-			userInput.setText("");
+
 			userInput.addKeyListener(new KeyListener() {
 
 				@Override
@@ -234,9 +256,9 @@ public class HangmanFrame extends JFrame implements KeyListener {
 			});
 			container.add(north, BorderLayout.NORTH);
 			container.add(letters, BorderLayout.WEST);
-			userInput.setText("Must be a minimum of 4 letters");
+
 			container.revalidate();
-			world.resetGame2(wordPanel);
+
 			break;
 		case 2:
 			System.exit(0);

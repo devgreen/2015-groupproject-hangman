@@ -108,6 +108,7 @@ public class HangmanWorld extends JComponent {
 		word.setLines(wordLines);
 		wordLines.revalidate();
 		hangmanComp.getPerson().resetOuts();
+		counter = word.getCurrWord().length();
 
 	}
 
