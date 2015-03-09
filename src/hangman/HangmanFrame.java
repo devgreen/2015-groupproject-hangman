@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 
 import javax.swing.BoxLayout;
@@ -123,18 +125,7 @@ public class HangmanFrame extends JFrame implements KeyListener {
 
 	};
 
-	public static void main(String[] args) {
-		HangmanFrame frame;
-		try {
-			frame = new HangmanFrame();
-			frame.setVisible(true);
-			GameLoopThread t = new GameLoopThread(frame);
-			t.start();
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public HangmanWorld getHangmanWorld() {
 		return world;

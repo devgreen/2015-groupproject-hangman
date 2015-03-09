@@ -31,6 +31,7 @@ public class Alphabet {
 	public void addActionListener(ActionListener listener) {
 		for (int i = 0; i < letters.length; i++) {
 			letters[i].addActionListener(listener);
+			letters[i].setFocusable(false);
 		}
 	}
 
