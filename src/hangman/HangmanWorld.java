@@ -1,5 +1,6 @@
 package hangman;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +18,16 @@ public class HangmanWorld extends JComponent {
 	private Hangman hangmanComp;
 	private Alphabet alphabet;
 	private Word word;
+	private int counter;
 
 	public HangmanWorld(JPanel alph, JPanel wordLines) throws FileNotFoundException {
+		alph.removeAll();
 		hangmanComp = new Hangman(800, 600);
 		alphabet = new Alphabet(alph);
 		alphabet.addActionListener(checkLetter);
+		alph.revalidate();
 		word = new Word(wordLines);
+		counter = word.getCurrWord().length();
 
 	}
 
@@ -35,14 +40,17 @@ public class HangmanWorld extends JComponent {
 		alph.revalidate();
 		word = new Word(wordLines, userInput);
 		wordLines.revalidate();
-
-		// resetGame(wordLines, userInput);
+		counter = word.getCurrWord().length();
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		hangmanComp.draw(g);
+		if (win()) {
+			g.setColor(Color.DARK_GRAY);
+			g.drawString("YOU WON!", 300, 300);
+		}
 
 	}
 
@@ -57,6 +65,13 @@ public class HangmanWorld extends JComponent {
 
 	};
 
+	public boolean win() {
+		if (counter == 0) {
+			alphabet.disableButtons();
+		}
+		return counter == 0;
+	}
+
 	public void check(JButton button) {
 		Person person = hangmanComp.getPerson();
 		if (button.isEnabled()) {
@@ -64,8 +79,10 @@ public class HangmanWorld extends JComponent {
 			ArrayList<Integer> there = word.contains(button.getText());
 
 			if (!there.isEmpty()) {
+
 				for (int i = 0; i < there.size(); i++) {
 					word.getLines().get(there.get(i)).setText(button.getText());
+					counter--;
 				}
 
 			} else {
@@ -103,7 +120,6 @@ public class HangmanWorld extends JComponent {
 
 		word.getLines().clear();
 		wordLines.removeAll();
-		// word.setLinesUser(wordLines);
 		wordLines.revalidate();
 		hangmanComp.getPerson().resetOuts();
 	}
@@ -198,6 +214,9 @@ public class HangmanWorld extends JComponent {
 			break;
 		case KeyEvent.VK_Z:
 			check(letter[25]);
+			break;
+		case KeyEvent.VK_ENTER:
+
 			break;
 		}
 	}

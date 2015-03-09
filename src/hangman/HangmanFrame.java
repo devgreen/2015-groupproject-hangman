@@ -24,7 +24,7 @@ import javax.swing.border.EmptyBorder;
 public class HangmanFrame extends JFrame implements KeyListener {
 
 	private JPanel letters;
-	private JPanel word;
+	private JPanel wordPanel;
 	private JButton restart;
 	private Container container;
 	private HangmanWorld world;
@@ -44,15 +44,17 @@ public class HangmanFrame extends JFrame implements KeyListener {
 		container.setLayout(new BorderLayout());
 		container.setBackground(Color.CYAN);
 
-		restart = new JButton("restart");
+		userInput = new JTextField();
+
+		restart = new JButton("Restart");
 		restart.addActionListener(restartListener);
 
 		letters = new JPanel();
 		letters.setLayout(new GridLayout(0, 2));
-		word = new JPanel();
-		word.setLayout(new FlowLayout());
-		word.setBorder(new EmptyBorder(10, 10, 10, 10));
-		world = new HangmanWorld(letters, word);
+		wordPanel = new JPanel();
+		wordPanel.setLayout(new FlowLayout());
+		wordPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		world = new HangmanWorld(letters, wordPanel);
 
 		String[] options = { "Computer", "2 Players" };
 		int option = JOptionPane.showOptionDialog(this, "Choose how you would like to play", "Number of Players",
@@ -61,7 +63,7 @@ public class HangmanFrame extends JFrame implements KeyListener {
 		case 0:
 
 			container.add(letters, BorderLayout.WEST);
-			container.add(word, BorderLayout.SOUTH);
+			container.add(wordPanel, BorderLayout.SOUTH);
 			container.add(world, BorderLayout.CENTER);
 			container.add(restart, BorderLayout.NORTH);
 
@@ -80,9 +82,9 @@ public class HangmanFrame extends JFrame implements KeyListener {
 
 					} else {
 						userInput.setText("");
-						world = new HangmanWorld(userWord, letters, word);
+						world = new HangmanWorld(userWord, letters, wordPanel);
 						container.add(world, BorderLayout.CENTER);
-						container.add(word, BorderLayout.SOUTH);
+						container.add(wordPanel, BorderLayout.SOUTH);
 						userInput.transferFocusBackward();
 
 					}
@@ -96,7 +98,7 @@ public class HangmanFrame extends JFrame implements KeyListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					userInput.setText("Must be a minimum of 4 letters");
-					world.resetGame2(word);
+					world.resetGame2(wordPanel);
 
 				}
 
@@ -104,7 +106,34 @@ public class HangmanFrame extends JFrame implements KeyListener {
 			userInput = new JTextField("Must be a minimum of 4 letters");
 			north.add(userInput);
 			north.add(enter);
-			north.add(restart2);
+			north.add(restart);
+			userInput.addKeyListener(new KeyListener() {
+
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+						String userWord = userInput.getText().toUpperCase();
+						if (userWord.length() < 4) {
+							userInput.setText("Word too short. Enter word minimum of 4 characters");
+
+						} else {
+							userInput.setText("");
+							world = new HangmanWorld(userWord, letters, wordPanel);
+							container.add(world, BorderLayout.CENTER);
+							container.add(wordPanel, BorderLayout.SOUTH);
+							userInput.transferFocusBackward();
+						}
+					}
+				}
+
+				@Override
+				public void keyReleased(KeyEvent e) {
+				}
+
+				@Override
+				public void keyTyped(KeyEvent e) {
+				}
+			});
 			container.add(north, BorderLayout.NORTH);
 			container.add(letters, BorderLayout.WEST);
 
@@ -114,18 +143,22 @@ public class HangmanFrame extends JFrame implements KeyListener {
 	}
 
 	ActionListener restartListener = new ActionListener() {
-
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
-			world.resetGame(word);
-			container.transferFocusBackward();
+			
+			try {
+				gameOptionRestart();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//world.resetGame(word);
+			//container.transferFocusBackward();
 
 		}
 
 	};
-
-
 
 	public HangmanWorld getHangmanWorld() {
 		return world;
@@ -133,6 +166,7 @@ public class HangmanFrame extends JFrame implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+
 		world.keyBoardInput(e.getKeyCode());
 
 	}
@@ -147,4 +181,66 @@ public class HangmanFrame extends JFrame implements KeyListener {
 
 	}
 
+	public void gameOptionRestart() throws FileNotFoundException {
+		String[] restartOptions = { "Computer", "2 Players", "Exit" };
+		int restartOption = JOptionPane.showOptionDialog(this, "Choose how you would like to play",
+				"Restart", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, restartOptions,
+				restartOptions[0]);
+		switch(restartOption){
+		case 0:
+			container.removeAll();
+			world = new HangmanWorld(letters,wordPanel);
+			world.resetGame(wordPanel);
+			container.add(world, BorderLayout.CENTER);
+			container.add(letters, BorderLayout.WEST);
+			container.add(wordPanel, BorderLayout.SOUTH);
+			container.add(restart, BorderLayout.NORTH);
+			container.revalidate();
+			container.transferFocusBackward();
+			break;
+		case 1:
+			container.removeAll();
+			//userInput = new JTextField("Must be a minimum of 4 letters");
+			north.add(userInput);
+			north.add(enter);
+			north.add(restart);
+			userInput.setText("");
+			userInput.addKeyListener(new KeyListener() {
+
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+						String user = userInput.getText().toUpperCase();
+						if (user.length() < 4) {
+							userInput.setText("Word too short. Enter word minimum of 4 characters");
+
+						} else {
+							userInput.setText("");
+							world = new HangmanWorld(user, letters, wordPanel);
+							container.add(world, BorderLayout.CENTER);
+							container.add(wordPanel, BorderLayout.SOUTH);
+							userInput.transferFocusBackward();
+						}
+					}
+				}
+
+				@Override
+				public void keyReleased(KeyEvent e) {
+				}
+
+				@Override
+				public void keyTyped(KeyEvent e) {
+				}
+			});
+			container.add(north, BorderLayout.NORTH);
+			container.add(letters, BorderLayout.WEST);
+			userInput.setText("Must be a minimum of 4 letters");
+			container.revalidate();
+			world.resetGame2(wordPanel);
+			break;
+		case 2:
+			System.exit(0);
+			break;
+		}
+	}
 }
