@@ -30,7 +30,6 @@ public class HangmanFrame extends JFrame implements KeyListener {
 	private JTextField userInput;
 	private JPanel north;
 	private JButton enter;
-	
 
 	public HangmanFrame() throws FileNotFoundException {
 		this.setSize(800, 600);
