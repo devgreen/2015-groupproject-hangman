@@ -38,7 +38,7 @@ public class Word {
 		}
 
 	}
-	
+
 	public void setLines(JPanel wordLines, Dictionary dict) throws FileNotFoundException {
 		currWord = getWord();
 		for (int i = 0; i < currWord.length(); i++) {
@@ -76,7 +76,7 @@ public class Word {
 	}
 
 	public String getWord() {
-		int number = random.nextInt(dict.getSize()-1);
+		int number = random.nextInt(dict.getSize() - 1);
 		return dict.getDictionary().get(number);
 	}
 

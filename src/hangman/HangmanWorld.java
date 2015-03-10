@@ -218,25 +218,7 @@ public class HangmanWorld extends JComponent {
 		case KeyEvent.VK_Z:
 			check(letter[25]);
 			break;
-		case KeyEvent.VK_ENTER:
-
-			break;
 		}
-	}
-
-	public void resetButtons() {
-		JButton[] alph = alphabet.getLetters();
-		for (int i = 0; i < alph.length; i++) {
-			alph[i].setEnabled(true);
-		}
-	}
-
-	public void setLines(JPanel lines) {
-		ArrayList<JLabel> line = word.getLines();
-		for (int j = 0; j < line.size(); j++) {
-			lines.add(line.get(j));
-		}
-
 	}
 
 }
