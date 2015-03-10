@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,7 +29,8 @@ public class HangmanFrame extends JFrame implements KeyListener {
 	private JTextField userInput;
 	private JPanel north;
 	private JButton enter;
-	//private JButton restart2;
+
+	// private JButton restart2;
 
 	public HangmanFrame() throws FileNotFoundException {
 		this.setSize(800, 600);

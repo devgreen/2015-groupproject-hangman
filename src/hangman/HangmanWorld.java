@@ -1,6 +1,7 @@
 package hangman;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +50,7 @@ public class HangmanWorld extends JComponent {
 		hangmanComp.draw(g);
 		if (win()) {
 			g.setColor(Color.DARK_GRAY);
+			g.setFont(new Font("Calibri", Font.BOLD, 16));
 			g.drawString("YOU WON! Jeff will now live!", 300, 300);
 		}
 
