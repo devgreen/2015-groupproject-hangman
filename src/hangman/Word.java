@@ -36,27 +36,24 @@ public class Word {
 			line.add(new JLabel("_____"));
 			wordLines.add(line.get(i));
 		}
-
 	}
 
-	public void setLines(JPanel wordLines, Dictionary dict) throws FileNotFoundException {
+	public void setLines(JPanel wordLines, Dictionary dict)
+			throws FileNotFoundException {
 		currWord = getWord();
 		for (int i = 0; i < currWord.length(); i++) {
 			line.add(new JLabel("_____"));
 			wordLines.add(line.get(i));
 		}
-
 	}
 
 	public void setLinesUser(JPanel wordLines) {
 		line.clear();
-		// wordLines.removeAll();
+
 		for (int j = 0; j < currWord.length(); j++) {
 			line.add(new JLabel("_____"));
 			wordLines.add(line.get(j));
 		}
-		// wordLines.revalidate();
-
 	}
 
 	public void setCurrWord(String userWord) {
@@ -70,7 +67,6 @@ public class Word {
 			if (letter.equals(String.valueOf(currWord.charAt(i)))) {
 				places.add(i);
 			}
-
 		}
 		return places;
 	}

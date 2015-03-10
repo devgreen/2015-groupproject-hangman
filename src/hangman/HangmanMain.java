@@ -16,5 +16,4 @@ public class HangmanMain {
 			e.printStackTrace();
 		}
 	}
-
 }

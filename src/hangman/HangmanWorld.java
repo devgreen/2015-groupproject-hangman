@@ -16,12 +16,14 @@ import javax.swing.JPanel;
 
 public class HangmanWorld extends JComponent {
 
+	private static final long serialVersionUID = 1L;
 	private Hangman hangmanComp;
 	private Alphabet alphabet;
 	private Word word;
 	private int counter;
 
-	public HangmanWorld(JPanel alph, JPanel wordLines) throws FileNotFoundException {
+	public HangmanWorld(JPanel alph, JPanel wordLines)
+			throws FileNotFoundException {
 		alph.removeAll();
 		hangmanComp = new Hangman(800, 600);
 		alphabet = new Alphabet(alph);
@@ -53,7 +55,6 @@ public class HangmanWorld extends JComponent {
 			g.setFont(new Font("Ravie", Font.BOLD, 24));
 			g.drawString("YOU WON! Jeff will now live!", 100, 250);
 		}
-
 	}
 
 	ActionListener checkLetter = new ActionListener() {
@@ -62,9 +63,7 @@ public class HangmanWorld extends JComponent {
 		public void actionPerformed(ActionEvent e) {
 			JButton button = (JButton) e.getSource();
 			check(button);
-
 		}
-
 	};
 
 	public boolean win() {
@@ -111,7 +110,6 @@ public class HangmanWorld extends JComponent {
 		wordLines.revalidate();
 		hangmanComp.getPerson().resetOuts();
 		counter = word.getCurrWord().length();
-
 	}
 
 	public void resetGame2(JPanel wordLines) {
@@ -220,5 +218,4 @@ public class HangmanWorld extends JComponent {
 			break;
 		}
 	}
-
 }

@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 
 public class HangmanFrame extends JFrame implements KeyListener {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel letters;
 	private JPanel wordPanel;
 	private JButton restart;
@@ -29,6 +30,7 @@ public class HangmanFrame extends JFrame implements KeyListener {
 	private JTextField userInput;
 	private JPanel north;
 	private JButton enter;
+	
 
 	public HangmanFrame() throws FileNotFoundException {
 		this.setSize(800, 600);
@@ -54,17 +56,19 @@ public class HangmanFrame extends JFrame implements KeyListener {
 		world = new HangmanWorld(letters, wordPanel);
 
 		String[] options = { "Computer", "2 Players" };
-		int option = JOptionPane.showOptionDialog(this, "Choose how you would like to play", "Number of Players",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		int option = JOptionPane.showOptionDialog(this,
+				"Choose how you would like to play", "Number of Players",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				options, options[0]);
 		switch (option) {
-		case 0:
 
+		case 0:
 			container.add(letters, BorderLayout.WEST);
 			container.add(wordPanel, BorderLayout.SOUTH);
 			container.add(world, BorderLayout.CENTER);
 			container.add(restart, BorderLayout.NORTH);
-
 			break;
+
 		case 1:
 			north = new JPanel();
 			north.setLayout(new BoxLayout(north, BoxLayout.X_AXIS));
@@ -75,7 +79,8 @@ public class HangmanFrame extends JFrame implements KeyListener {
 				public void actionPerformed(ActionEvent e) {
 					String userWord = userInput.getText().toUpperCase();
 					if (userWord.length() < 4) {
-						userInput.setText("Word too short. Enter word minimum of 4 characters");
+						userInput
+								.setText("Word too short. Enter word minimum of 4 characters");
 
 					} else {
 						userInput.setEditable(false);
@@ -100,12 +105,14 @@ public class HangmanFrame extends JFrame implements KeyListener {
 					if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 						String userWord = userInput.getText().toUpperCase();
 						if (userWord.length() < 4) {
-							userInput.setText("Word too short. Enter word minimum of 4 characters");
+							userInput
+									.setText("Word too short. Enter word minimum of 4 characters");
 
 						} else {
 							userInput.setEditable(false);
 							// userInput.setText("");
-							world = new HangmanWorld(userWord, letters, wordPanel);
+							world = new HangmanWorld(userWord, letters,
+									wordPanel);
 							container.add(world, BorderLayout.CENTER);
 							container.add(wordPanel, BorderLayout.SOUTH);
 							userInput.transferFocusBackward();
@@ -139,11 +146,7 @@ public class HangmanFrame extends JFrame implements KeyListener {
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-			// world.resetGame(word);
-			// container.transferFocusBackward();
-
 		}
-
 	};
 
 	public HangmanWorld getHangmanWorld() {
@@ -169,8 +172,10 @@ public class HangmanFrame extends JFrame implements KeyListener {
 
 	public void gameOptionRestart() throws FileNotFoundException {
 		String[] restartOptions = { "Computer", "2 Players", "Exit" };
-		int restartOption = JOptionPane.showOptionDialog(this, "Choose how you would like to play", "Restart",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, restartOptions, restartOptions[0]);
+		int restartOption = JOptionPane.showOptionDialog(this,
+				"Choose how you would like to play", "Restart",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				restartOptions, restartOptions[0]);
 		switch (restartOption) {
 		case 0:
 			container.removeAll();
@@ -199,7 +204,8 @@ public class HangmanFrame extends JFrame implements KeyListener {
 				public void actionPerformed(ActionEvent e) {
 					String userWord = userInput.getText().toUpperCase();
 					if (userWord.length() < 4) {
-						userInput.setText("Word too short. Enter word minimum of 4 characters");
+						userInput
+								.setText("Word too short. Enter word minimum of 4 characters");
 
 					} else {
 						userInput.setEditable(false);
@@ -223,7 +229,8 @@ public class HangmanFrame extends JFrame implements KeyListener {
 					if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 						String user = userInput.getText().toUpperCase();
 						if (user.length() < 4) {
-							userInput.setText("Word too short. Enter word minimum of 4 characters");
+							userInput
+									.setText("Word too short. Enter word minimum of 4 characters");
 
 						} else {
 							// userInput.setText("");
