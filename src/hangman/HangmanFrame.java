@@ -204,7 +204,7 @@ public class HangmanFrame extends JFrame implements KeyListener {
 			north = new JPanel();
 			north.setLayout(new BoxLayout(north, BoxLayout.X_AXIS));
 			userInput = new JTextField();
-			userInput.setText("must be minimum of four letters");
+			userInput.setText("Must be minimum of four letters");
 			north.add(userInput);
 			enter = new JButton("Enter");
 			enter.addActionListener(new ActionListener() {

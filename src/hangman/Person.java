@@ -1,22 +1,19 @@
 package hangman;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class Person {
 
 	private int width;
 	private int height;
-	private int numOuts = -1;
-	private boolean out;
+	private int numOuts;
 
 	public Person(int width, int height) {
-
-		out = false;
 		this.width = width;
 		this.height = height;
-		// numOuts = -1;
-
+		numOuts = -1;
 	}
 
 	public int getNumOuts() {
@@ -32,8 +29,6 @@ public class Person {
 	}
 
 	public void draw(Graphics g) {
-		// numOuts = numOuts+2;
-
 		switch (numOuts) {
 		case 0:
 			g.drawOval((int) (width * .33), (int) (height * .2), (int) (105), (int) (105));
@@ -125,18 +120,12 @@ public class Person {
 
 			g.drawLine((int) (width * .4), (int) (height * .65), (int) (width * .3), (int) (height * .7));
 			g.drawLine((int) (width * .4), (int) (height * .65), (int) (width * .5), (int) (height * .7));
-			g.drawString("YOU LOST. Jeff is now dead :(", (int) (width * .33), (int) (height * .4));
-			
+			g.setColor(Color.MAGENTA);
+			g.setFont(new Font("Jokerman", Font.BOLD, 24));
+			g.drawString("YOU LOST. Jeff is now dead :(", (int) (width * .19), (int) (height * .43));
+
 			break;
 
 		}
-	}
-
-	public boolean isOut() {
-		return out;
-	}
-
-	public void setOut(boolean out) {
-		this.out = out;
 	}
 }

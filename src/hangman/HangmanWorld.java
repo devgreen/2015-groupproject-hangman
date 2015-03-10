@@ -49,9 +49,9 @@ public class HangmanWorld extends JComponent {
 		super.paintComponent(g);
 		hangmanComp.draw(g);
 		if (win()) {
-			g.setColor(Color.DARK_GRAY);
-			g.setFont(new Font("Calibri", Font.BOLD, 16));
-			g.drawString("YOU WON! Jeff will now live!", 300, 300);
+			g.setColor(Color.MAGENTA);
+			g.setFont(new Font("Ravie", Font.BOLD, 24));
+			g.drawString("YOU WON! Jeff will now live!", 100, 250);
 		}
 
 	}
