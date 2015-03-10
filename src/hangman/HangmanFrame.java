@@ -30,8 +30,6 @@ public class HangmanFrame extends JFrame implements KeyListener {
 	private JPanel north;
 	private JButton enter;
 
-	// private JButton restart2;
-
 	public HangmanFrame() throws FileNotFoundException {
 		this.setSize(800, 600);
 		this.setTitle("Hangman");
@@ -80,7 +78,8 @@ public class HangmanFrame extends JFrame implements KeyListener {
 						userInput.setText("Word too short. Enter word minimum of 4 characters");
 
 					} else {
-						userInput.setText("");
+						userInput.setEditable(false);
+						// userInput.setText("");
 						world = new HangmanWorld(userWord, letters, wordPanel);
 						container.add(world, BorderLayout.CENTER);
 						container.add(wordPanel, BorderLayout.SOUTH);
@@ -90,20 +89,6 @@ public class HangmanFrame extends JFrame implements KeyListener {
 				}
 
 			});
-
-			/*
-			 * restart2 = new JButton("Restart"); restart2.addActionListener(new
-			 * ActionListener() {
-			 * 
-			 * @Override public void actionPerformed(ActionEvent e) {
-			 * userInput.setText("Must be a minimum of 4 letters");
-			 * world.resetGame2(wordPanel);
-			 * 
-			 * }
-			 * 
-			 * })
-			 */
-			;
 			userInput = new JTextField("Must be a minimum of 4 letters");
 			north.add(userInput);
 			north.add(enter);
@@ -118,7 +103,8 @@ public class HangmanFrame extends JFrame implements KeyListener {
 							userInput.setText("Word too short. Enter word minimum of 4 characters");
 
 						} else {
-							userInput.setText("");
+							userInput.setEditable(false);
+							// userInput.setText("");
 							world = new HangmanWorld(userWord, letters, wordPanel);
 							container.add(world, BorderLayout.CENTER);
 							container.add(wordPanel, BorderLayout.SOUTH);
@@ -216,7 +202,8 @@ public class HangmanFrame extends JFrame implements KeyListener {
 						userInput.setText("Word too short. Enter word minimum of 4 characters");
 
 					} else {
-						userInput.setText("");
+						userInput.setEditable(false);
+						// userInput.setText("");
 						world = new HangmanWorld(userWord, letters, wordPanel);
 						container.add(world, BorderLayout.CENTER);
 						container.add(wordPanel, BorderLayout.SOUTH);
@@ -239,7 +226,8 @@ public class HangmanFrame extends JFrame implements KeyListener {
 							userInput.setText("Word too short. Enter word minimum of 4 characters");
 
 						} else {
-							userInput.setText("");
+							// userInput.setText("");
+							userInput.setEditable(false);
 							world = new HangmanWorld(user, letters, wordPanel);
 							container.add(world, BorderLayout.CENTER);
 							container.add(wordPanel, BorderLayout.SOUTH);
